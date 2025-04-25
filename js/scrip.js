@@ -98,6 +98,8 @@ function mostrarResultados() {
 
     //uso de funcion recursiva para calcular promedio de edades de hombres y mujeres
 
+    
+
     let promAgeH = promedioR(ageH);
     let promAgeM = promedioR(ageM);
 
@@ -111,11 +113,13 @@ function mostrarResultados() {
     let actual = pacientes[i];
     let nuevoMin = (actual[5] < min[5]) ? actual : min;
 
-    return encontrarPacienteIMCMin(pacientes, i + 1, nuevoMin);
+    return PacienteIMC_Min(pacientes, i + 1, nuevoMin);
+
     }
 
     let pacienteBajoIMC = PacienteIMC_Min(pacientes);
 
+    
     alert(`
     RESULTADOS:
 
