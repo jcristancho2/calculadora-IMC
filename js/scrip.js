@@ -18,7 +18,8 @@ function agregarPacientes() {
 
     let running = true;
 
-    const nomb = "Ingrese nombre del paciente"
+    const id = "Ingrese el id del paciente";
+    const nomb = "Ingrese nombre del paciente";
     const age ="Ingrese edad del paciente";
     const sex ="Ingrese genero (M/F)";
     const p = "Ingrese el peso en Kg";
@@ -29,13 +30,14 @@ function agregarPacientes() {
     do{
         alert("NUEVO PACIENTE");
         
+        let Id = prompt(id);
         let nombre = prompt(nomb); // 
         let edad = prompt(age);
         let sexo = prompt(sex);
         let peso = prompt(p);
         let altura = prompt(alt);
 
-        let imc = peso/(altura**2);
+        let imc = (peso/(altura**2)).toFixed(2);
 
         let mensaje = "";
 
@@ -53,8 +55,8 @@ function agregarPacientes() {
         }
 
         alert(mensaje);
-        //               0       1     2     3     4      5
-        let paciente =[nombre, edad, sexo, peso, altura, imc];
+        //              0   1     2     3     4      5       6
+        let paciente =[Id,nombre, edad, sexo, peso, altura, imc];
         pacientes.push(paciente);
         console.log("paciente registrado:",paciente);
         alert(paciente);
@@ -71,8 +73,8 @@ function mostrarResultados() {
         return;
     }
 
-    let TH = pacientes.filter(p => p[2] === "M");
-    let TM = pacientes.filter(p => p[2] === "F");
+    let TH = pacientes.filter(p => p[3] === "M");
+    let TM = pacientes.filter(p => p[3] === "F");
 
     let cantidad_H = TH.length; 
     let cantidad_M = TM.length;
@@ -81,12 +83,12 @@ function mostrarResultados() {
     // p => p[2] === "M" uncion flecha que comprueba si se cumple la condicion segun el sexo 
     // .length la el valor de la cantidad de datos en el arreglo
   
-    let ageH = TH.map(p => parseInt(p[1])); //ARREGLAR
-    let ageM = TM.map(p => parseInt(p[1]));
+    let ageH = TH.map(p => parseInt(p[2])); 
+    let ageM = TM.map(p => parseInt(p[2]));
 
     // .map recorre al paciente que se busca con el filter y extrae la edad deacuerdo a como se almaceno en el arreglo principal 
 
-    let Tpacientes_m = pacientes.filter(p => p[1] < 18).length;
+    let Tpacientes_m = pacientes.filter(p => p[2] < 18).length;
     // .p => p[1] < 18 para extraer los datos del arreglo principal y haciendo una comparacion para solo extraer datos menores a 18 de edad
 
     function promedioR(arr, i = 0, suma = 0) {
@@ -104,14 +106,14 @@ function mostrarResultados() {
     let promAgeM = promedioR(ageM);
 
 
-    let HSobrep = TH.filter(p => p[5] >= 25 && p[5] < 30).length;
-    let MSobrep = TM.filter(p => p[5] >= 25 && p[5] < 30).length;
+    let HSobrep = TH.filter(p => p[6] >= 25 && p[6] < 30).length;
+    let MSobrep = TM.filter(p => p[6] >= 25 && p[6] < 30).length;
 
     function PacienteIMC_Min(pacientes, i = 1, min = pacientes[0]) {
     if (i >= pacientes.length) return min;
 
     let actual = pacientes[i];
-    let nuevoMin = (actual[5] < min[5]) ? actual : min;
+    let nuevoMin = (actual[6] < min[6]) ? actual : min;
 
     return PacienteIMC_Min(pacientes, i + 1, nuevoMin);
 
@@ -134,7 +136,7 @@ function mostrarResultados() {
     Hombres con sobrepeso (IMC 25-30): ${HSobrep}
     Mujeres con sobrepeso (IMC 25-30): ${MSobrep}
 
-    Paciente con menor IMC: ${pacienteBajoIMC[0]} - IMC: ${pacienteBajoIMC[5]}
+    Paciente con menor IMC: ${pacienteBajoIMC[0]} - IMC: ${pacienteBajoIMC[6]}
     `);
 }
 
